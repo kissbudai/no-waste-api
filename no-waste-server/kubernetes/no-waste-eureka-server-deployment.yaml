@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: no-waste-eureka-deployment
+spec:
+  serviceName: "eureka-server"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: no-waste-eureka
+  template:
+    metadata:
+      labels:
+        app: no-waste-eureka
+    spec:
+      containers:
+        - name: no-waste-eureka-pod
+          image: com.github.kissbudai/no-waste-eureka-img
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8761

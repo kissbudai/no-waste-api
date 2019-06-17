@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: no-waste-user-manager-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: no-waste-user-manager
+  template:
+    metadata:
+      labels:
+        app: no-waste-user-manager
+    spec:
+      containers:
+        - name: no-waste-user-manager-pod
+          image: com.github.kissbudai/no-waste-user-manager-img
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8002

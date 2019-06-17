@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: no-waste-proxy-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: no-waste-proxy
+  template:
+    metadata:
+      labels:
+        app: no-waste-proxy
+    spec:
+      containers:
+        - name: no-waste-proxy-pod
+          image: com.github.kissbudai/no-waste-proxy-img
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8762

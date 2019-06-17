@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: no-waste-product-manager-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: no-waste-product-manager
+  template:
+    metadata:
+      labels:
+        app: no-waste-product-manager
+    spec:
+      containers:
+        - name: no-waste-product-manager-pod
+          image: com.github.kissbudai/no-waste-product-manager-img
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8003
