@@ -22,20 +22,39 @@ configurations {
 
 repositories {
 	mavenCentral()
+	jcenter()
+}
+
+buildscript {
+	dependencies {
+		classpath("org.jetbrains.kotlin:kotlin-noarg:1.2.71")
+		classpath("org.jetbrains.kotlin:kotlin-allopen:1.2.71")
+	}
 }
 
 extra["springCloudVersion"] = "Greenwich.SR1"
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	implementation("org.springframework.boot:spring-boot-devtools")
+	
+	// Eureka
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
-	compileOnly("org.projectlombok:lombok")
+	
+	// Web
+	implementation("org.springframework.boot:spring-boot-starter-data-rest")
+
+	// Persistence
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	runtimeOnly("com.h2database:h2")
+
+	// Lombok
+	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
+	
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
