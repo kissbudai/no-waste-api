@@ -27,15 +27,32 @@ repositories {
 extra["springCloudVersion"] = "Greenwich.SR1"
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
-	compileOnly("org.projectlombok:lombok")
+
+	// Web
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-data-rest")
+
+	// Persistence
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	runtimeOnly("com.h2database:h2")
+	
+	// Security
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("io.jsonwebtoken:jjwt-api:0.10.5")
+	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.10.5")
+	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.10.5")
+
+	// Message Queue
+	implementation("org.springframework.boot:spring-boot-starter-amqp")
+	implementation("org.springframework.amqp:spring-rabbit")
+
+	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
+	
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

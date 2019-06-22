@@ -54,6 +54,10 @@ dependencies {
 	// Lombok
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
+
+	// Message Queue
+	implementation("org.springframework.boot:spring-boot-starter-amqp")
+	implementation("org.springframework.amqp:spring-rabbit")
 	
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
