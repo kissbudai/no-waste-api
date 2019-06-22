@@ -26,11 +26,14 @@ repositories {
 extra["springCloudVersion"] = "Greenwich.SR1"
 
 dependencies {
+	// Spring web dev
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	developmentOnly("org.springframework.boot:spring-boot-devtools")
+
+	// Kotlin
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
 
 	// Eureka
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-server")
