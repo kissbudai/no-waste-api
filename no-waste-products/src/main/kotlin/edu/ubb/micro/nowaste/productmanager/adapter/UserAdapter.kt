@@ -11,3 +11,9 @@ fun UserDTO.toModel() = User(
 	firstName = firstName,
 	lastName = lastName
 )
+
+fun User.toDTO() = UserDTO(
+	id = id,
+	firstName = firstName,
+	lastName = lastName
+)

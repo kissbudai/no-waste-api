@@ -54,6 +54,9 @@ dependencies {
 	// Lombok
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
+	
+	// Redis Cache
+	implementation("org.springframework.boot:spring-boot-starter-data-redis")
 
 	// Message Queue
 	implementation("org.springframework.boot:spring-boot-starter-amqp")

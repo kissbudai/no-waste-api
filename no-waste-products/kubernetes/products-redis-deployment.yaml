@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: products-redis-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: products-redis
+  template:
+    metadata:
+      labels:
+        app: products-redis
+    spec:
+      containers:
+        - name: products-redis-pod
+          image: redis
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 6379

@@ -4,11 +4,13 @@ import edu.ubb.micro.nowaste.productmanager.service.ampq.AmpqReceiverService
 import edu.ubb.micro.nowaste.productmanager.mock.MockDataGenerator
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.cache.annotation.EnableCaching
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient
 
 /**
  * [AmpqReceiverService] has to be inject here in order to initialize the AMPQ listeners.
  */
+@EnableCaching
 @SpringBootApplication
 @EnableEurekaClient
 class ProductManagerApplication(mockDataGenerator: MockDataGenerator, ampqReceiverService: AmpqReceiverService) {

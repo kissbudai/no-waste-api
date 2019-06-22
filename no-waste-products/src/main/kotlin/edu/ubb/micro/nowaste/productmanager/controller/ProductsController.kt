@@ -11,6 +11,7 @@ import edu.ubb.micro.nowaste.productmanager.model.Product
 import edu.ubb.micro.nowaste.productmanager.service.ServiceException
 import edu.ubb.micro.nowaste.productmanager.service.product.ProductService
 import org.slf4j.LoggerFactory
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.rest.webmvc.ResourceNotFoundException
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
@@ -48,14 +49,15 @@ class ProductsController(private val productService: ProductService, private val
 		}
 	}
 
+	@Cacheable(value=["single-product"])
 	@GetMapping("/products/{id}")
-	fun getProductById(@PathVariable("id") productId: String): ResponseEntity<ProductDTO> {
+	fun getProductById(@PathVariable("id") productId: String): ProductDTO {
 		logger.info("Product with id $productId requested.")
 
 		try {
 			val product = productService.getProductById(productId) ?: throw ResourceNotFoundException("Product not found")
 
-			return ResponseEntity.ok(product.toDTO())
+			return product.toDTO() // return ResponseEntity.ok(product.toDTO())
 		} catch (ex: ServiceException) {
 			logger.error("Something went wrong while processing the /product/$productId request", ex)
 			throw ApiException("Unable to return product for $productId", ex)
