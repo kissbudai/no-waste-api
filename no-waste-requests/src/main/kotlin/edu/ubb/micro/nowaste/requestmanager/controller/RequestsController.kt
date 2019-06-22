@@ -58,7 +58,8 @@ class RequestsController(private val requestService: RequestService, private val
 		logger.info("POST /requests endpoint called with productId $itemId")
 
 		try {
-			val createdRequest = requestService.createRequestForProduct(itemId)
+
+			val createdRequest = requestService.createRequestForProduct(authorizationService.getUserId(), itemId)
 
 			return ResponseEntity.ok(createdRequest)
 		} catch (ex: ServiceException) {

@@ -32,12 +32,13 @@ interface RequestService {
 	 * Creates a new request for an product identified by [productId].
 	 * Throws an exception if the product is not in OPEN state.
 	 *
+	 * @param userId The id of the user who wants to perform this action
 	 * @param productId The id of the product for which the request should be created.
 	 *
 	 * @return The created request
 	 */
 	@Throws(ServiceException::class)
-	fun createRequestForProduct(productId: String): RequestDTO
+	fun createRequestForProduct(userId: String, productId: String): RequestDTO
 
 	/**
 	 * Cancels a request or throws exception if the request is not in OPEN/Pending states. If the request is cancelled,

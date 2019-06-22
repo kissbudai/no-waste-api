@@ -52,6 +52,10 @@ dependencies {
 	// Message Queue
 	implementation("org.springframework.boot:spring-boot-starter-amqp")
 	implementation("org.springframework.amqp:spring-rabbit")
+	
+	// Hystrix Circuit Breaker
+	implementation("org.springframework.cloud:spring-cloud-starter-netflix-hystrix")
+	implementation("org.springframework.cloud:spring-cloud-starter-netflix-hystrix-dashboard")
 
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")

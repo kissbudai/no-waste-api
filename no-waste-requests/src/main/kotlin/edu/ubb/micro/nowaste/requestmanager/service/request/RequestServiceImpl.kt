@@ -1,6 +1,5 @@
 package edu.ubb.micro.nowaste.requestmanager.service.request
 
-import edu.ubb.micro.nowaste.requestmanager.PRODUCT_SERVICE_URL
 import edu.ubb.micro.nowaste.requestmanager.di.AmpqProvider.Companion.QUEUE_REQUESTS_TO_PRODUCTS
 import edu.ubb.micro.nowaste.requestmanager.dto.RequestDTO
 import edu.ubb.micro.nowaste.requestmanager.dto.toDTO
@@ -13,25 +12,24 @@ import edu.ubb.micro.nowaste.requestmanager.security.AuthorizationService
 import edu.ubb.micro.nowaste.requestmanager.service.ServiceException
 import edu.ubb.micro.nowaste.requestmanager.service.product.ProductService
 import org.slf4j.LoggerFactory
+import org.springframework.amqp.core.BindingBuilder
+import org.springframework.amqp.core.Queue
+import org.springframework.amqp.core.TopicExchange
+import org.springframework.amqp.rabbit.core.RabbitAdmin
+import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.dao.DataAccessException
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.data.rest.webmvc.ResourceNotFoundException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import org.springframework.web.client.RestTemplate
-import org.springframework.amqp.rabbit.core.RabbitTemplate
-import org.springframework.amqp.core.TopicExchange
-import org.springframework.amqp.rabbit.core.RabbitAdmin
-import org.springframework.amqp.core.BindingBuilder
-import org.springframework.amqp.core.Queue
 
 @Service
-class RequestServiceImpl(
+open class RequestServiceImpl(
 	private val requestRepository: RequestRepository,
 	private val productService: ProductService,
 	private val authorizationService: AuthorizationService,
-	private val restTemplate: RestTemplate,
+	private val productRequester: ProductRequester,
 	private val rabbitAdmin: RabbitAdmin,
 	private val rabbitTemplate: RabbitTemplate
 ) : RequestService {
@@ -73,7 +71,7 @@ class RequestServiceImpl(
 		return request.toDTO()
 	}
 
-	override fun createRequestForProduct(productId: String): RequestDTO {
+	override fun createRequestForProduct(userId: String, productId: String): RequestDTO {
 
 		logger.trace("Request creation started")
 
@@ -86,25 +84,26 @@ class RequestServiceImpl(
 			}
 
 			logger.info("Request creation: Item determined, can start the request creation.")
-			requestProduct(productId)
+			requestProduct(userId, productId)
 
 		} else {
 
-			// We need to check if the offer still exists, so a call is required to the other service, after that, if the item exists there, then 100% it is OPEN.
-			if (restTemplate.getForEntity("$PRODUCT_SERVICE_URL/$productId", ProductStatusInfoDTO::class.java).body?.status != 0) {
+			val productInfo = productRequester.getProductInfoFromProductsService(productId)
+
+			if (productInfo?.status != 0) {
 				logger.info("Request creation: The item is not open, can't be requested at the moment")
 				throw ServiceException("Item can't be requested")
 			}
 
-			requestProduct(productId)
+			requestProduct(userId, productId)
 		}
 	}
 
-	private fun requestProduct(productId: String): RequestDTO {
+	private fun requestProduct(userId: String, productId: String): RequestDTO {
 		val request = Request(
 			productId = productId,
 			status = Request.Status.PENDING,
-			requesterId = authorizationService.getUserId(),
+			requesterId = userId,
 			createdAt = System.currentTimeMillis()
 		)
 
@@ -114,7 +113,7 @@ class RequestServiceImpl(
 	}
 
 	@Transactional
-	protected fun submitRequest(productId: String, request: Request): RequestDTO {
+	protected open fun submitRequest(productId: String, request: Request): RequestDTO {
 		// TODO: Add a queue which will initiate an update on the other service as well: product service:  updateStatus(productId, ProductInfo.Status.PENDING)
 		sendMessage(productId)
 		productService.saveAsRequested(productId)
@@ -213,7 +212,7 @@ class RequestServiceImpl(
 
 	@Transactional
 	@Throws(DataAccessException::class, ServiceException::class)
-	protected fun confirmItemRequest(itemId: String, request: Request) {
+	protected open fun confirmItemRequest(itemId: String, request: Request) {
 //
 //		itemService.updateStatus(productId, Item.Status.COMPLETED)
 //		requestRepository.save(request.apply { status = Request.Status.COMPLETED })
