@@ -1,4 +1,4 @@
-package edu.ubb.micro.nowaste.authmanager.security
+package edu.ubb.micro.nowaste.authmanager.config
 
 /**
  * Configuration values for JWT implementation

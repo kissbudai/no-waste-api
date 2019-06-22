@@ -1,9 +1,11 @@
-package edu.ubb.micro.nowaste.authmanager.service
+package edu.ubb.micro.nowaste.authmanager.service.auth
 
 import edu.ubb.micro.nowaste.authmanager.exception.InvalidCredentialsException
 import edu.ubb.micro.nowaste.authmanager.exception.UserAlreadyExistsException
 import edu.ubb.micro.nowaste.authmanager.model.User
 import edu.ubb.micro.nowaste.authmanager.security.AuthTokenProvider
+import edu.ubb.micro.nowaste.authmanager.service.ServiceException
+import edu.ubb.micro.nowaste.authmanager.repository.UserRepository
 import org.springframework.dao.DataAccessException
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service

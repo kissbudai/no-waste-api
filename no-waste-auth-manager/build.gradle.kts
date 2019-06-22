@@ -35,8 +35,11 @@ buildscript {
 extra["springCloudVersion"] = "Greenwich.SR1"
 
 dependencies {
+	// Web
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-data-rest")
+	
+	// Kotlin
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -44,12 +47,12 @@ dependencies {
 	// Eureka
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
 	
-	// Persistence TODO: keep only the required ones
+	// Persistence
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	runtimeOnly("com.h2database:h2")
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 
-	// Security
+	// JWT
 	implementation("io.jsonwebtoken:jjwt-api:0.10.5")
 	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.10.5")
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.10.5")

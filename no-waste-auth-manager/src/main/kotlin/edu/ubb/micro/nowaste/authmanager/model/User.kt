@@ -5,6 +5,9 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import javax.persistence.GeneratedValue
 
+/**
+ * Model to represent a user in the system.
+ */
 @Document
 data class User(
 	val userName: String,

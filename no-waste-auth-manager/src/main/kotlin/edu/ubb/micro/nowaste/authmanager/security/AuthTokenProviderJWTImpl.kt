@@ -1,5 +1,6 @@
 package edu.ubb.micro.nowaste.authmanager.security
 
+import edu.ubb.micro.nowaste.authmanager.config.JwtConfig
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.stereotype.Component

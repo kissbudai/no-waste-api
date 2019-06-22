@@ -4,7 +4,7 @@ import edu.ubb.micro.nowaste.authmanager.dto.UserDTO
 import edu.ubb.micro.nowaste.authmanager.dto.toDTO
 import edu.ubb.micro.nowaste.authmanager.dto.toUser
 import edu.ubb.micro.nowaste.authmanager.exception.ApiException
-import edu.ubb.micro.nowaste.authmanager.service.AuthService
+import edu.ubb.micro.nowaste.authmanager.service.auth.AuthService
 import edu.ubb.micro.nowaste.authmanager.service.ServiceException
 import edu.ubb.micro.nowaste.authmanager.service.UserAuthUseCase
 import org.slf4j.LoggerFactory

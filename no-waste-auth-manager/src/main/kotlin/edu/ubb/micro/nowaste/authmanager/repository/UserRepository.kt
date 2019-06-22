@@ -1,4 +1,4 @@
-package edu.ubb.micro.nowaste.authmanager.service
+package edu.ubb.micro.nowaste.authmanager.repository
 
 import edu.ubb.micro.nowaste.authmanager.model.User
 import org.springframework.data.mongodb.repository.MongoRepository
