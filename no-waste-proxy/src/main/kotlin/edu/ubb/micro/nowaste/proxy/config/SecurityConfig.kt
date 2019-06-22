@@ -41,16 +41,5 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
 		}
 
 		http.addFilterBefore(tokenRequestFilter, UsernamePasswordAuthenticationFilter::class.java)
-
-
-
-
-
-//		http.exceptionHandling().authenticationEntryPoint { _, rsp, _ -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED) }
-//			.and()
-//			.addFilterBefore(tokenRequestFilter, UsernamePasswordAuthenticationFilter::class.java)
-//				.authorizeRequests()
-//				.antMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
-//				.anyRequest().authenticated()
 	}
 }
