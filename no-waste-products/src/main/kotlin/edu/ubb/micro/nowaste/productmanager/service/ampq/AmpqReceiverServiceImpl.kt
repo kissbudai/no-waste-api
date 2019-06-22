@@ -14,6 +14,11 @@ import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
 
+/**
+ * [AmpqReceiverService] implementation which subscribes to the message queue and listenes to update events. When an update message arrives, it means that
+ * a given item (the id of the product comes in the message) was requested on the requests-microservice and this service will take care of updating the status
+ * of the given product to mark as requested.
+ */
 @Service
 class AmpqReceiverServiceImpl(
 	private val productService: ProductService,

@@ -45,6 +45,12 @@ interface ProductService {
 	@Throws(ServiceException::class)
 	fun create(product: ProductCreationRequestBody, creator: User): Product
 
+	/**
+	 * Method to update the status of a [Product].
+	 *
+	 * @param productId The id of the product which has to be updated.
+	 * @param status The new status
+	 */
 	@Throws(ServiceException::class)
 	fun updateStatus(productId: String, status: Product.Status)
 }
