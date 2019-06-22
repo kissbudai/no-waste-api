@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
+/**
+ * Provides all the configurations required for CloudAMPQ Queue.
+ */
 @Configuration
 class AmpqProvider {
 

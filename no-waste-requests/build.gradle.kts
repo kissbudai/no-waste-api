@@ -27,9 +27,12 @@ repositories {
 extra["springCloudVersion"] = "Greenwich.SR1"
 
 dependencies {
+	// Kotlin 
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	
+	// Eureka
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
 
 	// Web
