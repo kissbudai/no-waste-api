@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: no-waste-request-manager-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: no-waste-request-manager
+  template:
+    metadata:
+      labels:
+        app: no-waste-request-manager
+    spec:
+      containers:
+        - name: no-waste-request-manager-pod
+          image: com.github.kissbudai/no-waste-request-manager-img
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8004
